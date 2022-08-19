@@ -1,0 +1,29 @@
+{
+  "name": "ceopardy",
+  "version": "1.0.0",
+  "description": "= Ceopardy",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obilodeau/ceopardy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/obilodeau/ceopardy/issues"
+  },
+  "homepage": "https://github.com/obilodeau/ceopardy#readme",
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.6.0",
+    "socket.io-client": "^4.5.1"
+  }
+}
