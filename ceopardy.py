@@ -15,14 +15,11 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-import functools
 import logging
 import random
-import re
-import sys
 
-from flask import g, Flask, render_template, redirect, jsonify, request
-from flask_socketio import SocketIO, emit, disconnect
+from flask import g, Flask, render_template, jsonify, request
+from flask_socketio import SocketIO, emit
 from flask_sqlalchemy import SQLAlchemy
 
 import utils
