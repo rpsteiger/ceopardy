@@ -91,6 +91,29 @@
     var socket = io.connect('http://' + document.domain + ':' + location.port + '/viewer');
     var rouletteId = null;
 
+    var soundFile = document.createElement("audio");
+    soundFile.preload = "auto";
+
+    //Load the sound file (using a source element for expandability)
+    var src = document.createElement("source");
+    src.src = "https://www.myinstants.com/media/sounds/jeopardy.mp3";
+    soundFile.appendChild(src);
+
+    //Load the audio tag
+    //It auto plays as a fallback
+    //soundFile.load();
+
+
+    //Plays the sound
+    function play() {
+        soundFile.volume = 0.000000;
+        soundFile.play();
+       //Set the current time for the audio file to the beginning
+       soundFile.currentTime = 0.01;
+       soundFile.volume = 0.5;
+    }
+
+
     function SelectTeam(id) {
         clearInterval(rouletteId);
         $(".team-selected").removeClass("team-selected");
@@ -125,6 +148,7 @@
 
     socket.on('question', function(question) {
         if (question.action == "show") {
+            play();
             $("#question-overlay-content").html(question.content);
             $("#question-overlay-category>p").text(question.category);
             $("#question-overlay").fadeIn(1000);
