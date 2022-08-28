@@ -1,0 +1,7 @@
+﻿Runde,Stufe,Frage,Antwort
+1,100,"Was ist eine ""Backdoor""?","Eine - oft bewusst eingebaute – Möglichkeit, die normale Zugriffssicherung auf ein System zu umgehen"
+2,200,"Was ist ""Authentifizerung""?","Hierbei wird geprüft, ob Benutzer auch die sind, für die sie sich ausgeben"
+3,300,"Was ist ein ""Exploit""?",Damit lassen sich Schwachstellen ausnutzen.
+4,400,"Was ist eine ""Cross-Site-Scripting""-Schwachstelle?","Eine Schwachstelle, bei der es möglich ist, Javascript im Kontext des Benutzers einer Webseite auszuführen."
+5,500,"Was ist ""OpenSSL""?","Die bekannteste, freie Software-Bilbiothek, welche Verschlüsselungsprotokolle wie TLS und andere implementiert."
+

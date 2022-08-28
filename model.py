@@ -74,6 +74,7 @@ class Team(db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(255))
+    correct_answer = db.Column(db.String(255))
     score_original = db.Column(db.Integer)
     category = db.Column(db.String(80))
     final = db.Column(db.Boolean)
@@ -83,9 +84,10 @@ class Question(db.Model):
 
     answers = db.relationship('Answer', back_populates="question")
 
-    def __init__(self, text, score_original, category, row, col, final=False,
-                 double=False):
+    def __init__(self, text, correct_answer, score_original, category, row, col,
+                 final=False, double=False):
         self.text = text
+        self.correct_answer = correct_answer
         self.score_original = score_original
         self.category = category
         self.row = row

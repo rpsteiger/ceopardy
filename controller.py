@@ -287,7 +287,8 @@ class Controller():
 
         condition = and_(Question.row == row, Question.col == column)
         _q = Question.query.filter(condition).one()
-        return { "text": question_to_html(_q.text), "category": _q.category }
+        return { "text": question_to_html(_q.text), "category": _q.category,
+                 "correct_answer": _q.correct_answer}
 
 
     @staticmethod

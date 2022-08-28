@@ -17,8 +17,10 @@
 #
 import glob
 import html
+import json
 import os
 import re
+import csv
 
 from config import config
 
@@ -62,6 +64,33 @@ def parse_questions(filename):
 
     return questions
 
+def import_csv_questions(file_names: list, category_names:list, output_file=config['BASE_DIR'] + "data/questions.json") -> None:
+    if len(file_names) != len(category_names):
+        raise(Exception(f"Error while importing CSV files: the length of the list file_names does not match the lenth "
+                        f"of the dir output_files"))
+
+    questions = {}
+    for i, csv_file in enumerate(file_names):
+        category_questions = []
+        with open(csv_file, mode='r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile)
+            # skip the first row since we expect it to contain column names
+            csv_reader.__next__()
+            for row in csv_reader:
+                values = tuple(row)
+                # Ignore this (an empty line at the file will read as a column with no cells)
+                if len(values) == 0:
+                    continue
+
+                # TODO: add unit test that checks that the file has 4 columns
+                category_questions.append({
+                    "question": values[3],
+                    "correct_answer": values[2]
+                })
+            questions[category_names[i]] = category_questions
+
+    with open(output_file, mode='w', encoding='utf-8') as output_file:
+        output_file.write(json.dumps(questions))
 
 def parse_gamefile(filename):
     """Parses a game file. A game file holds the categories that are going to be

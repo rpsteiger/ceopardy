@@ -1,11 +1,13 @@
+# vim temp files
+*.*~
+
 # Python
 __pycache__/
+bin
+lib
 
 # IDE files
-/.idea/
-
-# dependencies managed by Bower
-/static/vendor/
+.idea/
 
 # project files
 ceopardy*db

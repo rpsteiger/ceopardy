@@ -410,8 +410,7 @@
                 $(`#${key}-range`).val(data.answer[key]);
             }
             
-            $("#question").html(data.question);
-            //$("#answer-controls").removeClass("no-display");
+            $("#question").html(data.correct_answer);
             $("#question-id").val(id);
             UnlockBuzzers();
         });
