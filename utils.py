@@ -25,7 +25,7 @@ import csv
 from config import config
 
 
-def parse_questions(filename):
+def parse_questions_2(filename):
     """Parses a question file.
        Returns a dict (of categories) of lists of questions (in score order)
     """
@@ -63,6 +63,23 @@ def parse_questions(filename):
         raise QuestionParsingError(context) from e
 
     return questions
+
+def parse_questions(filename: str) -> dict:
+    try:
+        results = {}
+        with open(filename, mode='r', encoding='utf-8') as questions_file:
+            json_str = questions_file.readline()
+            parsed_json = json.loads(json_str)
+
+            for category, questions in parsed_json.items():
+                results[category] = []
+                [results[category].append(question) for question in questions]
+
+
+    except Exception as e:
+        context = "Problem parsing the question file: {}".format(filename)
+        raise QuestionParsingError(context) from e
+    return results
 
 def import_csv_questions(file_names: list, category_names:list, output_file=config['BASE_DIR'] + "data/questions.json") -> None:
     if len(file_names) != len(category_names):

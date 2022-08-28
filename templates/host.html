@@ -204,7 +204,9 @@
         <div class="container-bottom-right">
             <div class="black-box flex-small-pad">
                 <div class="box-fake-overlay">
-                    <div id="question" class="box-ceopardy box-question-host">{{ active_question.get('text', '')|safe }}</div>
+                    <div id="question" class="box-ceopardy box-question-host">
+                    <p>{{ active_question.get('correct_answer', '')|safe }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -410,7 +412,7 @@
                 $(`#${key}-range`).val(data.answer[key]);
             }
             
-            $("#question").html(data.correct_answer);
+            $("#question > p").html(data.correct_answer);
             $("#question-id").val(id);
             UnlockBuzzers();
         });

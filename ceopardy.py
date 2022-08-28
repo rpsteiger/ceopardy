@@ -111,8 +111,8 @@ def init():
             controller.setup_teams(teamnames)
             controller.setup_questions(roundfile)
             controller.start_game()
-        except:
-            app.logger.exception("Initialization error!")
+        except Exception as e:
+            app.logger.exception(f"Initialization error: {e}")
             return jsonify(result="failure", error="Initialization error!")
 
     elif request.form['action'] == "resume":

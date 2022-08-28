@@ -74,8 +74,8 @@ class Controller():
         app.logger.info("Setup teams: {}".format(teamnames))
         game = Game.query.one()
         if game.state == GameState.uninitialized:
-            for _tid, _tn in teamnames.items():
-                team = Team(_tid, _tn)
+            for _tid, _tn in enumerate(teamnames.items()):
+                team = Team(_tid, _tn[1])
                 db.session.add(team)
             db.session.commit()
         else:
@@ -105,7 +105,7 @@ class Controller():
             for _col, _cat in enumerate(gamefile, start=1):
                 for _row, _q in enumerate(questions[_cat], start=1):
                     score = _row * config['SCORE_TICK']
-                    question = Question(_q, score, _cat, _row, _col)
+                    question = Question(_q["question"], _q["correct_answer"], score, _cat, _row, _col)
                     db.session.add(question)
 
             # Add final question

@@ -22,9 +22,9 @@ config = {
     'VARIABLE_TEAMS': False,
     'CATEGORIES_PER_GAME': 5,
     'QUESTIONS_PER_CATEGORY': 5,
-    'QUESTIONS_FILENAME': 'data/Questions.cp',
+    'QUESTIONS_FILENAME': 'data/questions.json',
     'SCORE_TICK': 100,
-    'MESSAGES': [\
+    'MESSAGES': [
         {"title": "Game not started",
          "text": "Please wait while the game is being set up..."},
         {"title": "Technical difficulties",

@@ -9,8 +9,10 @@ QUESTIONS_FILENAME = '.resources/test/questions.json'
 IMPORT_CSV_FILENAMES = [f"{config['BASE_DIR']}data/import/fragen_buzzwords.csv",
                         f"{config['BASE_DIR']}data/import/fragen_infosec_basics.csv",
                         f"{config['BASE_DIR']}data/import/fragen_malware.csv",
+                        f"{config['BASE_DIR']}data/import/fragen_q4.csv",
+                        f"{config['BASE_DIR']}data/import/fragen_q5.csv",
                         ]
-IMPORT_CATEGORY_NAMES = ["Buzzwords", "Infosec Basics", "Malware"]
+IMPORT_CATEGORY_NAMES = ["Buzzwords", "Infosec Basics", "Malware", "Category4", "Category5"]
 
 
 class TestUtils(object):
@@ -18,15 +20,14 @@ class TestUtils(object):
     # TODO: turn these tests into proper integration tests using temporary files
 
     def test_parse_questions_normal(self):
-        # actual = parse_questions(QUESTIONS_FILENAME)
         actual = parse_questions(config['BASE_DIR'] + config['QUESTIONS_FILENAME'])
         assert type(actual) is dict
         assert len(actual) > 0
 
-        random_first = random.choice(list(actual.items()))
-        assert 'text' in random_first
-        assert 'answer' in random_first
-        assert 'category' in random_first
+        first_category = actual["Buzzwords"]
+        buzzwords_questions = first_category[0]
+        assert 'question' in buzzwords_questions
+        assert 'correct_answer' in buzzwords_questions
 
     def test_import_csv_questions_mismatch_lists(self):
         too_short_category_list = list(IMPORT_CSV_FILENAMES)

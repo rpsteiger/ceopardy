@@ -1,0 +1,6 @@
+﻿Runde,Stufe,Frage,Antwort
+1,100,Was ist ein Trojaner?,"Dies ist ein schädliches Programm, das sich als normales, gutartiges Programm oder Dienstprogramm ausgibt, um ein Opfer zur Installation zu verleiten."
+2,200,Welche drei typischen Methoden verwenden Anti-Malware-Programme?,"Echtzeiterkennung, Entfernung der Malware, Sandboxing"
+3,300,"Woher stammt der Name ""The Shadow Brokers"" und warum wurde diese Gruppe bekannt?","Der Name stammt aus der Videospielreihe ""Mass Effect"". Die Gruppe hat 2016 und 2017 diverse Hacking Tools der NSA geleakt, darunter die eine Schwachstelle, welche anschliessend in der WannaCry-Ransomware-Kampagne verwendet wurde."
+4,100,"Was versteht man unter dem Begriff ""Ransomware-as-a-service""?","Dies ist eine Anlehnung an Software-as-a-Service und damit meint man die Bereitstellung von Ressourcen, die Ransomware ermöglichen."
+5,200,Was ist ein Rootkit?,"Dies ist ein Programm, das nach dem Einbruch in ein Softwaresystem auf dem kompromittierten System installiert wird, um zukünftige Logins des Eindringlings zu verbergen und Prozesse und Dateien zu verstecken"
