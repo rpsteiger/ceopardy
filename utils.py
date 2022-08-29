@@ -25,51 +25,14 @@ import csv
 from config import config
 
 
-def parse_questions_2(filename):
-    """Parses a question file.
-       Returns a dict (of categories) of lists of questions (in score order)
-    """
-    # TODO should drop the old format entirely?
-    # if so use html and integrate answers into question file
-    # people can then use asciidoctor or markdown to render questions from
-    # a simpler format
-    questions = {}
-    cur_category = None
-    try:
-        with open(filename, 'r') as f:
-            for line in f:
-                line = line.rstrip("\r\n")
-
-                # skip comments or whitespace lines
-                if re.match(r'^\s*(#|$)', line):
-                    continue
-
-                # it's a category
-                m = re.match(r'^>(.*)$', line)
-                if m:
-                    # create category entry
-                    questions[m.group(1)] = list()
-                    cur_category = m.group(1)
-                    continue
-
-                # convert fake new-lines into real ones
-                line = re.sub(r'\\n', '\n', line)
-
-                # it's a question
-                questions[cur_category].append(line)
-
-    except Exception as e:
-        context = "Problem parsing the question file: {}".format(filename)
-        raise QuestionParsingError(context) from e
-
-    return questions
-
 def parse_questions(filename: str) -> dict:
     try:
         results = {}
+        json_lines = ""
         with open(filename, mode='r', encoding='utf-8') as questions_file:
-            json_str = questions_file.readline()
-            parsed_json = json.loads(json_str)
+            for line in questions_file:
+                json_lines += line
+            parsed_json = json.loads(json_lines)
 
             for category, questions in parsed_json.items():
                 results[category] = []
@@ -81,10 +44,12 @@ def parse_questions(filename: str) -> dict:
         raise QuestionParsingError(context) from e
     return results
 
-def import_csv_questions(file_names: list, category_names:list, output_file=config['BASE_DIR'] + "data/questions.json") -> None:
+
+def import_csv_questions(file_names: list, category_names: list,
+                         output_file=config['BASE_DIR'] + "data/questions.json") -> None:
     if len(file_names) != len(category_names):
-        raise(Exception(f"Error while importing CSV files: the length of the list file_names does not match the lenth "
-                        f"of the dir output_files"))
+        raise (Exception(f"Error while importing CSV files: the length of the list file_names does not match the lenth "
+                         f"of the dir output_files"))
 
     questions = {}
     for i, csv_file in enumerate(file_names):
@@ -108,6 +73,7 @@ def import_csv_questions(file_names: list, category_names:list, output_file=conf
 
     with open(output_file, mode='w', encoding='utf-8') as output_file:
         output_file.write(json.dumps(questions))
+
 
 def parse_gamefile(filename):
     """Parses a game file. A game file holds the categories that are going to be
@@ -157,7 +123,8 @@ def question_to_html(question_text):
     if m:
         # TODO file names will have to be hard to guess if we go multi-client
         # TODO push style into CSS
-        return '<img src="/static/game-media/{}" width="100%" style="max-height: 100%; max-width: 100%; object-fit: contain;">'.format(m.group(1))
+        return '<img src="/static/game-media/{}" width="100%" style="max-height: 100%; max-width: 100%; object-fit: contain;">'.format(
+            m.group(1))
 
     # Transform new lines into <br>
     question_text = re.sub(r'\n', '<br/>', question_text)

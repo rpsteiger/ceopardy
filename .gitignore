@@ -17,3 +17,6 @@ ceopardy.log
 /static/sounds/reveal.mp3
 /static/sounds/thinking-music.wav
 /static/sounds/timeout.mp3
+
+# omit questions
+data/questions.json
