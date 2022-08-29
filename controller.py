@@ -67,15 +67,14 @@ class Controller():
         game = Game.query.one()
         return game.state != GameState.uninitialized
 
-
     @staticmethod
     def setup_teams(teamnames):
         """Teamnames is {teamid: team_name} dict"""
         app.logger.info("Setup teams: {}".format(teamnames))
         game = Game.query.one()
         if game.state == GameState.uninitialized:
-            for _tid, _tn in enumerate(teamnames.items()):
-                team = Team(_tid, _tn[1])
+            for _tid, _tn in teamnames.items():
+                team = Team(_tid, _tn)
                 db.session.add(team)
             db.session.commit()
         else:
@@ -203,8 +202,7 @@ class Controller():
 
         else:
             # Return names with a 0 score
-            return {name: 0
-                    for tid, name in Controller.get_teams_for_form().items()}
+            return {name: 0 for tid, name in Controller.get_teams_for_form().items()}
 
 
     # TODO remove
@@ -256,7 +254,7 @@ class Controller():
         if Team.query.first() is not None:
             return {team.tid: team.name for team in Team.query.all()}
         else:
-            return {'team{}'.format(_i): 'Team {}'.format(_i)
+            return {_i: 'Team {}'.format(_i)
                     for _i in range(1, config['NB_TEAMS'] + 1)}
 
 

@@ -145,8 +145,7 @@ def setup():
     # TODO: [LOW] csrf token errors are not logged (and return 200 which contradicts docs)
     if not form.validate_on_submit():
         return jsonify(result="failure", errors=form.errors)
-    teamnames = {field.id: field.data for field in form
-                 if TEAM_FIELD_ID in field.flags}
+    teamnames = {field.id: field.data for field in form if TEAM_FIELD_ID in field.flags}
     controller.update_teams(teamnames)
     emit("team", {"action": "name", "args": teamnames}, namespace='/viewer', broadcast=True)
     return jsonify(result="success", teams=teamnames)

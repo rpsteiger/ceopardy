@@ -411,7 +411,6 @@
                 }
                 $(`#${key}-range`).val(data.answer[key]);
             }
-            
             $("#question > p").html(data.correct_answer);
             $("#question-id").val(id);
             UnlockBuzzers();
@@ -424,7 +423,7 @@
         socket.emit('question', {action: "deselect", id: id}, function(data) {
             // Reset form values
             $('#form-question input[type=range]').val(0);
-            $("#question").empty();
+            $("#question > p").empty();
             LockBuzzers();
         });
     }
@@ -614,11 +613,7 @@
             var id = $(this).closest('.black-box').attr('team');
             socket.emit('team', {action: "select", id: id}, SelectTeam);
         });
-        
-        $('.team-range').on("click", function() {
-            // TODO if question is unanswered, toggle unlock
-            console.log($(this).val());
-        });
+
         
         $('#results-submit').on("click", SubmitResults);
         $('#form-question').on("submit", function(e){
