@@ -1,6 +1,10 @@
 # vim temp files
 *.*~
 
+# macOS specific
+**/.DS_Store
+static/.DS_Store
+
 # Python
 __pycache__/
 bin
@@ -17,6 +21,9 @@ ceopardy.log
 /static/sounds/reveal.mp3
 /static/sounds/thinking-music.wav
 /static/sounds/timeout.mp3
+
+# node specifc
+node_modules
 
 # omit questions
 data/questions.json

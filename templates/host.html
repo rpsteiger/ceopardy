@@ -411,6 +411,7 @@
                 }
                 $(`#${key}-range`).val(data.answer[key]);
             }
+            console.log(data)
             $("#question > p").html(data.correct_answer);
             $("#question-id").val(id);
             UnlockBuzzers();

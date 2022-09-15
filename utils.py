@@ -55,6 +55,7 @@ def import_csv_questions(file_names: list, category_names: list,
     for i, csv_file in enumerate(file_names):
         category_questions = []
         with open(csv_file, mode='r', encoding='utf-8') as csvfile:
+            print(f"opening file: {csv_file}")
             csv_reader = csv.reader(csvfile)
             # skip the first row since we expect it to contain column names
             csv_reader.__next__()
@@ -73,6 +74,7 @@ def import_csv_questions(file_names: list, category_names: list,
 
     with open(output_file, mode='w', encoding='utf-8') as output_file:
         output_file.write(json.dumps(questions))
+        print("successfully imported files!")
 
 
 def parse_gamefile(filename):

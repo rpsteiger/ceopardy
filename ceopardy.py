@@ -124,13 +124,13 @@ def init():
     controller.set_state("overlay-big", content)
     emit("overlay", {"action": "show", "id": "big", "html": content},
          namespace='/viewer', broadcast=True)
-    
+
     # Just to be on the safe side
     controller.set_state("question", "")
     controller.set_state("overlay-question", "")
     emit("overlay", {"action": "hide", "id": "question", "html": ""},
          namespace='/viewer', broadcast=True)
-    
+
     # Also as a precaution, the initialization might have caused something
     # to change below the big overlay
     emit("redirect", {"url": "/"}, namespace='/viewer', broadcast=True)
@@ -183,7 +183,7 @@ def answer():
 
     return jsonify(result="success", answers=question_status[data["id"]],
                    teams=teams, ctl_team=ctl_team)
-    
+
 
 @socketio.on('question', namespace='/host')
 def handle_question(data):
@@ -202,7 +202,7 @@ def handle_question(data):
         state = controller.get_questions_status_for_viewer()
         emit("update-board", state, namespace='/viewer', broadcast=True)
         emit("question", {"action": "hide", "id": "question", "content": "",
-                         "category": ""},
+                          "category": ""},
              namespace='/viewer', broadcast=True)
         controller.set_state("question", "")
         return {}
@@ -215,13 +215,13 @@ def handle_message(data):
     if data["action"] == "show":
         content = "<p>{0}</p>".format(data["text"])
         mid = data["id"]
-        emit("overlay", {"action": "show", "id": "big", "html": content}, 
-            namespace='/viewer', broadcast=True)
+        emit("overlay", {"action": "show", "id": "big", "html": content},
+             namespace='/viewer', broadcast=True)
     else:
         content = ""
         mid = ""
-        emit("overlay", {"action": "hide", "id": "big", "html": ""}, 
-            namespace='/viewer', broadcast=True)
+        emit("overlay", {"action": "hide", "id": "big", "html": ""},
+             namespace='/viewer', broadcast=True)
     controller.set_state("message", mid)
     controller.set_state("overlay-big", content)
 
@@ -273,16 +273,16 @@ def move_to_final_round(data):
 def handle_refresh():
     controller = get_controller()
     # FIXME
-    #state = controller.dictionize_questions_solved()
+    # state = controller.dictionize_questions_solved()
     state = {}
     emit("update-board", state)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' or 1==1:
 
     # Logging
     file_handler = logging.FileHandler('ceopardy.log')
-    #file_handler.setLevel(logging.INFO)
+    # file_handler.setLevel(logging.INFO)
     file_handler.setLevel(logging.DEBUG)
     fmt = logging.Formatter(
         '{asctime} {levelname}: {message} [in {pathname}:{lineno}]', style='{')
@@ -292,21 +292,23 @@ if __name__ == '__main__':
     # Cleaner controller access
     # Unsure if required once we have a db back-end
     with app.app_context():
-
         from controller import Controller
+
+
         def get_controller():
             _ctl = getattr(g, '_ctl', None)
             if _ctl is None:
                 _ctl = g._ctl = Controller()
             return _ctl
 
+
         @app.teardown_appcontext
         def teardown_controller(exception):
-            #app.logger.debug("Controller teardown requested")
+            # app.logger.debug("Controller teardown requested")
             _ctl = getattr(g, '_ctl', None)
             if _ctl is not None:
                 _ctl = None
 
     # WARNING: This app is not ready to be exposed on the network.
     #          Game host interface would be exposed.
-    socketio.run(app, host="127.0.0.1", debug=True)
+    # socketio.run(app, host="127.0.0.1", debug=True)
